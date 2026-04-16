@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context docBase="C:\Users\User\devcourse\java\JSPboard\src\webapp">
+  <Resources cacheMaxSize="10240">
+    <PreResources base="C:/Users/User/devcourse/java/JSPboard/target/classes" className="org.apache.catalina.webresources.DirResourceSet" webAppMount="/WEB-INF/classes"/>
+    <PostResources base="C:/Users/User/.m2/repository/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/lombok-1.18.36.jar"/>
+  </Resources>
+</Context>
