@@ -9,19 +9,18 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/gugudan")
-public class Gugudan extends HttpServlet {
+public class GugudanServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //gugudan?dan=8&limit=9
-        String danParam = req.getParameter("dan");
-        String limitParam = req.getParameter("limit");
-        int dan = Integer.parseInt(danParam);
-        int limit = Integer.parseInt(limitParam);
+        Rq rq = new Rq(req, resp);
 
-        resp.setContentType("text/html; charset=UTF-8");
-        resp.getWriter().append("<h1>===구구단 %d단===</h1>".formatted(dan));
+        //gugudan?dan=8&limit=9
+        int dan = rq.getIntParam("dan", 1);
+        int limit = rq.getIntParam("limit", 1);
+
+        rq.writer("<h1>===구구단 %d단===</h1>".formatted(dan));
         for(int i=1; i<=limit; i++){
-            resp.getWriter().append("<div>%d * %d = %d</div>".formatted(dan, i, dan*i));
+            rq.writer("<div>%d * %d = %d</div>".formatted(dan, i, dan*i));
         }
     }
 }
