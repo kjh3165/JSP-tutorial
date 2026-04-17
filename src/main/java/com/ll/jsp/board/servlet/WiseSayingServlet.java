@@ -12,16 +12,14 @@ import java.io.IOException;
 public class WiseSayingServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8"); // 들어오는 데이터를 UTF-8로 인코딩
-        resp.setCharacterEncoding("UTF-8"); // 응답 데이터를 UTF-8로 인코딩
-        resp.setContentType("text/html; charset=UTF-8");
+        Rq rq = new Rq(req, resp);
 
-        String content = req.getParameter("content");
-        String author = req.getParameter("author");
+        String content = rq.getParam("content", "");
+        String author = rq.getParam("author", "");
 
-        resp.getWriter().append("<h1>명언</h1>");
-        resp.getWriter().append("명언: %s<br/>".formatted(content));
-        resp.getWriter().append("작가: %s<br/>".formatted(author));
+        rq.writer("<h1>명언</h1>");
+        rq.writer("명언: %s<br/>".formatted(content));
+        rq.writer("작가: %s<br/>".formatted(author));
 
     }
 }
