@@ -7,9 +7,20 @@
 <h1>게시물 리스트</h1>
 
 <div>
-    <ul>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+        </tr>
+        </thead>
+        <tbody>
         <c:forEach var="article" items="${articleList}" varStatus="status">
-            <li>${article.id}번 : ${article.title}</li>
+            <tr>
+                <td>${article.id}</td>
+                <td>${article.title}</td>
+            </tr>
         </c:forEach>
-    </ul>
+        </tbody>
+    </table>
 </div>
