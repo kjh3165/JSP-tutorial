@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.ll.jsp.board.servlet.Rq" %>
+<%@ page import="com.ll.jsp.board.boundedContext.global.base.Rq" %>
 
 <%
 Rq rq = new Rq(request, response);
