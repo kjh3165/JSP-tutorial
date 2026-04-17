@@ -168,3 +168,6 @@ logs
 ### tomcat ###
 conf
 .smarttomcat
+
+### Sevlet ###
+work
