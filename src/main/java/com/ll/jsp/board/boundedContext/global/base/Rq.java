@@ -70,4 +70,12 @@ public class Rq {
             throw new RuntimeException("뷰로의 포워딩 중 IO 오류가 발생했습니다.", e);
         }
     }
+
+    public void getAttr(String name) {
+        req.getAttribute(name);
+    }
+
+    public void setAttr(String name, Object value) {
+        req.setAttribute(name, value);
+    }
 }
