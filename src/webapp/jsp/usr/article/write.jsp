@@ -3,10 +3,37 @@
 <!-- JSP 파일에서 JSTL을 사용하기 위해 taglib 선언-->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<script>
+    function articleSaveSubmitForm(form) {
+
+        if (form.title.value.trim().length == 0) {
+            alert("제목을 입력해주세요.");
+            form.title.focus();
+            return;
+        } else if (form.title.value.trim().length < 3) {
+            alert("제목은 두 글자 이상 적어주세요.");
+            form.title.focus();
+            return;
+        }
+
+        if (form.content.value.trim().length == 0) {
+            alert("내용을 입력해주세요.");
+            form.content.focus();
+            return;
+        }  else if (form.content.value.trim().length < 3) {
+            alert("내용은 두 글자 이상 적어주세요.");
+            form.content.focus();
+            return;
+        }
+
+        form.submit();
+    }
+</script>
+
 <div>
     <h2>게시물 작성</h2>
 
-    <form>
+    <form onsubmit="articleSaveSubmitForm(this); return false;">
         <div>
             <label for="title">제목</label>
             <input type="text"
