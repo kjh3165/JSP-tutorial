@@ -78,4 +78,12 @@ public class Rq {
     public void setAttr(String name, Object value) {
         req.setAttribute(name, value);
     }
+
+    public String getUrlPath() {
+        return req.getRequestURI();
+    }
+
+    public String getMethod() {
+        return req.getMethod();
+    }
 }
