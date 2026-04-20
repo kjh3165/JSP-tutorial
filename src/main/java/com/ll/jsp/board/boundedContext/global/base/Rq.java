@@ -79,7 +79,7 @@ public class Rq {
         req.setAttribute(name, value);
     }
 
-    public String getUrlPath() {
+    public String getURIPath() {
         return req.getRequestURI();
     }
 
