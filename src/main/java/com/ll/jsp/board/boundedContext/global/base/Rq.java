@@ -91,4 +91,28 @@ public class Rq {
         String[] bits = req.getRequestURI().split("/");
         return "/%s/%s/%s".formatted(bits[1], bits[2], bits[3]);
     }
+
+    public String getPathValueById(int index, String defaultValue) {
+        // ["", "usr", "article", "detail", "1"]
+        String[] bits = req.getRequestURI().split("/");
+        try{
+            return bits[3 + index];
+        }catch(ArrayIndexOutOfBoundsException e){
+            return defaultValue;
+        }
+    }
+
+    public long getLongPathValueById(int index, int defaultValue) {
+        String value = getPathValueById(index, null);
+        if(value == null){
+            return defaultValue;
+        }
+
+        try{
+            return Long.parseLong(value);
+        }catch(NumberFormatException e){
+            return defaultValue;
+        }
+
+    }
 }
