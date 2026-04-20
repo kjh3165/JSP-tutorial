@@ -31,14 +31,14 @@ public class DispatcherServlet extends HttpServlet {
 
         switch (rq.getMethod()) {
             case "GET" -> {
-                switch (rq.getURIPath()) {
+                switch (rq.getActionPath()) {
                     case "/usr/article/list" -> articleController.showList(rq);
                     case "/usr/article/write" -> articleController.showWrite(rq);
                     case "/usr/member/join" -> memberController.showJoin(rq);
                 }
             }
             case "POST" -> {
-                switch (rq.getURIPath()) {
+                switch (rq.getActionPath()) {
                     case "/usr/article/write" -> articleController.doWrite(rq);
                 }
             }
