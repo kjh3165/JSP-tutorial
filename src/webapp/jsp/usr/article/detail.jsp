@@ -27,10 +27,11 @@
     <div>
         <a href="#" id="deleteLinkBtn">삭제</a>
         <form
-                action="/usr/article/delete/${article.id}"
+                action="/usr/article/delete"
                 method="POST"
                 id="deleteForm"
         >
+            <input type="hidden" name="deleteId" value="${article.id}" readonly>
         </form>
     </div>
 </div>

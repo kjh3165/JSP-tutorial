@@ -102,7 +102,19 @@ public class ArticleController {
     }
 
     public void doDelete(Rq rq) {
-        long id = rq.getLongPathValueByIndex(1, 0);
+        //long id = rq.getLongPathValueByIndex(1, 0);
+        int id = rq.getIntParam("deleteId", 0);
+        if (id <= 0) {
+            rq.historyBack("올바른 요청이 아닙니다.");
+            return;
+        }
+
+        Article article = articleService.findById(id);
+        if (article == null) {
+            rq.replace("%d번 게시물이 존재하지 않습니다.".formatted(id), "/usr/article/list");
+            return;
+        }
+
         articleService.delete(id);
         rq.replace("%d번 게시물이 삭제되었습니다.".formatted(id), "/usr/article/list");
     }
