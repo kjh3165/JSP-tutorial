@@ -100,4 +100,10 @@ public class ArticleController {
         articleService.modify(id, title, content);
         rq.replace("%d번 게시물이 수정되었습니다.".formatted(id), "/usr/article/detail/%d".formatted(id));
     }
+
+    public void doDelete(Rq rq) {
+        long id = rq.getLongPathValueByIndex(1, 0);
+        articleService.delete(id);
+        rq.replace("%d번 게시물이 삭제되었습니다.".formatted(id), "/usr/article/list");
+    }
 }

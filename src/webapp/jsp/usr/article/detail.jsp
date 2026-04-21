@@ -24,4 +24,7 @@
     <div>
         <a href="/usr/article/modify/${article.id}">수정</a>
     </div>
+    <div>
+        <a href="/usr/article/delete/${article.id}">삭제</a>
+    </div>
 </div>

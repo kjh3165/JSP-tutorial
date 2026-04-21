@@ -29,4 +29,7 @@ public class ArticleService {
         articleRepository.modify(id, title, content);
     }
 
+    public void delete(long id) {
+        articleRepository.delete(id);
+    }
 }
