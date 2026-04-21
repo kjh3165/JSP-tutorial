@@ -3,6 +3,8 @@
 <!-- JSP 파일에서 JSTL을 사용하기 위해 taglib 선언-->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<%@ include file="../common/header.jspf" %>
+
 <script>
     function articleSaveSubmitForm(form) {
 
@@ -57,3 +59,5 @@
         </div>
     </form>
 </div>
+
+<%@ include file="../common/footer.jspf" %>
