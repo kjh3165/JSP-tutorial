@@ -60,7 +60,7 @@ public class ArticleController {
     }
 
     public void showDetail(Rq rq) {
-        long id = rq.getLongPathValueById(1, 0);
+        long id = rq.getLongPathValueByIndex(1, 0);
         if (id <= 0) {
             rq.appendBody("""
                     <script>
@@ -87,7 +87,7 @@ public class ArticleController {
     }
 
     public void showModify(Rq rq) {
-        long id = rq.getLongPathValueById(1, 0);
+        long id = rq.getLongPathValueByIndex(1, 0);
         if (id <= 0) {
             rq.appendBody("""
                     <script>
@@ -111,5 +111,39 @@ public class ArticleController {
 
         rq.setAttr("article", article);
         rq.view("usr/article/modify");
+    }
+
+    public void doModify(Rq rq) {
+        long id = rq.getLongPathValueByIndex(1, 0);
+
+        String title = rq.getParam("title", "");
+        if (title.isBlank()) {
+            rq.appendBody("""
+                    <script>
+                        alert('제목을 입력해주세요.');
+                        history.back();
+                    </script>
+                    """);
+            return;
+        }
+
+        String content = rq.getParam("content", "");
+        if (content.isBlank()) {
+            rq.appendBody("""
+                    <script>
+                        alert('내용을 입력해주세요.');
+                        history.back();
+                    </script>
+                    """);
+            return;
+        }
+
+        articleService.modify(id, title, content);
+        rq.appendBody("""
+                <div>%d번 게시물 수정</div>
+                <div>제목 : %s</div>
+                <div>내용 : %s</div>
+                <a href="/usr/article/list">목록으로</a>
+                """.formatted(id, title, content));
     }
 }

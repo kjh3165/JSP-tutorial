@@ -102,7 +102,7 @@ public class Rq {
         }
     }
 
-    public long getLongPathValueById(int index, int defaultValue) {
+    public long getLongPathValueByIndex(int index, int defaultValue) {
         String value = getPathValueById(index, null);
         if(value == null){
             return defaultValue;

@@ -37,7 +37,7 @@
         <span>번호 : ${article.id}</span>
     </div>
 
-    <form method="POST" onsubmit="articleSaveSubmitForm(this); return false;">
+    <form method="POST" action="/usr/article/modify/${article.id}" onsubmit="articleSaveSubmitForm(this); return false;">
         <div>
             <label for="title">제목</label>
             <input type="text"
