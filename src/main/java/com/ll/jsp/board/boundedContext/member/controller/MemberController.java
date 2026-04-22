@@ -44,4 +44,8 @@ public class MemberController {
         memberService.join(username, password, name);
         rq.replace("%s님 회원가입이 완료되었습니다.".formatted(username), "/");
     }
+
+    public void showLogin(Rq rq) {
+        rq.view("/usr/member/login");
+    }
 }
