@@ -48,4 +48,36 @@ public class MemberController {
     public void showLogin(Rq rq) {
         rq.view("/usr/member/login");
     }
+
+    public void doLogin(Rq rq) {
+        String username = rq.getParam("username", "");
+        if (username.trim().isBlank()) {
+            rq.replace("로그인 아이디를 입력해주세요.", "/usr/member/login");
+            return;
+        }
+
+        String password = rq.getParam("password", "");
+        if (password.trim().isBlank()) {
+            rq.replace("비밀번호를 입력해주세요.", "/usr/member/login");
+            return;
+        }
+
+        Member member = memberService.findByUsername(username);
+        if (member == null) {
+            rq.replace("해당 회원은 존재하지 않습니다.", "/usr/member/join");
+            return;
+        }
+        if (!member.getPassword().equals(password)) {
+            rq.replace("비밀번호가 일치하지 않습니다.", "/usr/member/login");
+            return;
+        }
+
+        rq.setSessionAttr("loggedInMember", member);
+        rq.replace("%s님 로그인 되었습니다.".formatted(member.getName()), "/");
+    }
+
+    public void showMe (Rq rq) {
+        Member member = (Member) rq.getSessionAttr("loggedInMember");
+        rq.print("로그인된 회원: " + member.getUsername());
+    }
 }
