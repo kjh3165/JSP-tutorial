@@ -78,6 +78,23 @@ public class ArticleRepository {
         return new Article(row);
     }
 
+    public ArticleDto joinMemberFindById(long id){
+        Map<String, Object> row = dbConnection.selectRow(
+                """
+                    SELECT
+                    A.id,
+                    A.title,
+                    A.content,
+                    M.username,
+                    A.regDate
+                    FROM article AS A
+                    JOIN member AS M
+                    ON A.member_id = M.id
+                    WHERE A.id = %d
+                """.formatted(id));
+        return new ArticleDto(row);
+    }
+
     public void modify(long id, String title, String content) {
         dbConnection.update(
                 """

@@ -30,6 +30,10 @@ public class ArticleService {
         return articleRepository.findById(id);
     }
 
+    public ArticleDto joinMemberFindById(long id){
+        return articleRepository.joinMemberFindById(id);
+    }
+
     public void modify(long id, String title, String content) {
         articleRepository.modify(id, title, content);
     }
