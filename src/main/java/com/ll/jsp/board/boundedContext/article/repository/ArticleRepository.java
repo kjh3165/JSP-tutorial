@@ -7,6 +7,7 @@ import com.ll.jsp.board.db.DBConnection;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.LongStream;
 
 public class ArticleRepository {
@@ -19,16 +20,22 @@ public class ArticleRepository {
     }
 
     public List<Article> findAll() {
-        return articleList.stream()
-                .sorted(Comparator.comparing(Article::getId).reversed()) // 정렬 기준 예시
-                .toList();
+        List<Map<String, Object>> rows = dbConnection.selectRows("select * from article");
+        System.out.println(rows);
+
+        for (Map<String, Object> row : rows) {
+            Article article  = new Article(row);
+            articleList.add(article);
+        }
+
+        return articleList;
     }
 
     public long save(String title, String content) {
         long id = dbConnection.insert(
                 """
-                    INSERT INTO article 
-                    SET title='%s', 
+                    INSERT INTO article
+                    SET title='%s',
                     content='%s'
                 """.formatted(title, content));
         return id;
