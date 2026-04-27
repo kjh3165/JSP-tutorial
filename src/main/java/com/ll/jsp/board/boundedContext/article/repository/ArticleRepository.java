@@ -37,8 +37,8 @@ public class ArticleRepository {
                 """
                     INSERT INTO article
                     SET
-                    title='%s',
-                    content='%s'
+                    title = '%s',
+                    content = '%s'
                 """.formatted(title, content));
         return id;
     }
@@ -54,16 +54,24 @@ public class ArticleRepository {
     }
 
     public void modify(long id, String title, String content) {
-        Article article = findById(id);
-        if(article == null) return;
-
-        article.setTitle(title);
-        article.setContent(content);
+        dbConnection.update(
+                """
+                    UPDATE article
+                    SET
+                    title = '%s',
+                    content = '%s'
+                    WHERE id = %d
+                """.formatted(title, content, id)
+        );
     }
 
     public void delete(long id) {
-        // articleList.removeIf(article -> article.getId()==id);
-        Article article = findById(id);
-        articleList.remove(article);
+        dbConnection.delete(
+                """
+                    DELETE
+                    FROM article
+                    WHERE id = %d
+                """.formatted(id)
+        );
     }
 }
