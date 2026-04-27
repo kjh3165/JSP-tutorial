@@ -1,0 +1,4 @@
+DROP DATABASE IF EXISTS board_proj;
+CREATE DATABASE IF NOT EXISTS board_proj;
+
+USE board_proj;
