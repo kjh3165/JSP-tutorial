@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @AllArgsConstructor
@@ -16,10 +17,12 @@ import java.util.Map;
         private long id;
         private String title;
         private String content;
+        private String regDate;
 
         public Article(Map<String, Object> row) {
             this.id = ((BigInteger) row.get("id")).longValue();
             this.title = (String) row.get("title");
             this.content = (String) row.get("content");
+            this.regDate = row.get("regDate").toString();
         }
     }
