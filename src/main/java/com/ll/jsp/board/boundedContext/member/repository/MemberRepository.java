@@ -5,6 +5,7 @@ import com.ll.jsp.board.boundedContext.member.dto.Member;
 import com.ll.jsp.board.db.DBConnection;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ public class MemberRepository {
     }
 
     public void save(String username, String password, String name) {
+        String encryptedPassword = Base64.getEncoder().encodeToString((password + "salt").getBytes());
         dbConnection.insert(
                 """
                     INSERT INTO member
@@ -26,13 +28,17 @@ public class MemberRepository {
                     password = '%s',
                     name = '%s',
                     regDate = now()
-                """.formatted(username, password, name));
+                """.formatted(username, encryptedPassword, name));
     }
 
     public Member findByUsername(String username) {
-        return memberList.stream()
-                .filter( member -> member.getUsername().equals(username))
-                .findFirst()
-                .orElse(null);
+        Map<String, Object> row = dbConnection.selectRow(
+                """
+                    SELECT *
+                    FROM `member`
+                    WHERE username = '%s'
+                """.formatted(username));
+        if (row.isEmpty()) return null;
+        return new Member(row);
     }
 }
