@@ -15,11 +15,12 @@ public class ArticleRepository {
     DBConnection dbConnection;
 
     public ArticleRepository() {
-        articleList = new ArrayList<>();
         dbConnection = Container.dbConnection;
     }
 
     public List<Article> findAll() {
+        articleList = new ArrayList<>();
+
         List<Map<String, Object>> rows = dbConnection.selectRows("select * from article");
         System.out.println(rows);
 
@@ -35,17 +36,21 @@ public class ArticleRepository {
         long id = dbConnection.insert(
                 """
                     INSERT INTO article
-                    SET title='%s',
+                    SET
+                    title='%s',
                     content='%s'
                 """.formatted(title, content));
         return id;
     }
 
     public Article findById(long id) {
-        return articleList.stream()
-                .filter(article -> article.getId() == id)
-                .findFirst()
-                .orElse(null);
+        Map<String, Object> row = dbConnection.selectRow(
+                """
+                    SELECT *
+                    FROM article
+                    WHERE id = %d
+                """.formatted(id));
+        return new Article(row);
     }
 
     public void modify(long id, String title, String content) {
