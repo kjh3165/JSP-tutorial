@@ -11,21 +11,11 @@ import java.util.stream.LongStream;
 
 public class ArticleRepository {
     private List<Article> articleList;
-    private long lastId;
     DBConnection dbConnection;
 
     public ArticleRepository() {
         articleList = new ArrayList<>();
-        makeTestData();
-        lastId = articleList.get(articleList.size() -1).getId();
         dbConnection = Container.dbConnection;
-    }
-
-    void makeTestData() {
-        LongStream.rangeClosed(1, 5).forEach(i -> {
-            Article article = new Article(i, "제목 " + i, "내용 " + i);
-            articleList.add(article);
-        });
     }
 
     public List<Article> findAll() {
@@ -35,11 +25,12 @@ public class ArticleRepository {
     }
 
     public long save(String title, String content) {
-        long id = ++lastId;
-        Article article = new Article(id, title, content);
-
-        articleList.add(article);
-
+        long id = dbConnection.insert(
+                """
+                    INSERT INTO article 
+                    SET title='%s', 
+                    content='%s'
+                """.formatted(title, content));
         return id;
     }
 
